@@ -51,7 +51,7 @@ void UGrabber::SetupInputComponent()
 // Called every frame
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	if (!PhysicsHandle) { return; }
 	// If the physics handle is attached
@@ -60,7 +60,6 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 		// Move the object that we are holding
 		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
 	}
-
 }
 
 void UGrabber::Grab()
@@ -74,11 +73,10 @@ void UGrabber::Grab()
 	if (ActorHit)
 	{
 		if (!PhysicsHandle) { return; }
-		PhysicsHandle->GrabComponent(
+		PhysicsHandle->GrabComponentAtLocation(
 			ComponentToGrab,
 			NAME_None, // No bones needed
-			ComponentToGrab->GetOwner()->GetActorLocation(),
-			true // Allow Rotation
+			ComponentToGrab->GetOwner()->GetActorLocation()
 		);
 	}
 }
