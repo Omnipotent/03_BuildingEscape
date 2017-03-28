@@ -25,27 +25,16 @@ void UGrabber::BeginPlay()
 void UGrabber::FindPhysicsHandleComponent()
 {
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (PhysicsHandle == nullptr)
-	{
-		// Log an error message if no Physics Handle is found
-		UE_LOG(LogTemp, Error, TEXT("%s is missing physics handle component!"), *GetOwner()->GetName());
-	}
+	if (!ensure(PhysicsHandle)) { return; }
 }
 
 /// Look for attached Input Component (Only appears at run time)
 void UGrabber::SetupInputComponent()
 {
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
-	if (InputComponent)
-	{
-		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
-		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
-	}
-	else
-	{
-		// Log an error message if no Input Component is found
-		UE_LOG(LogTemp, Error, TEXT("%s is missing input component!"), *GetOwner()->GetName());
-	}
+	if (!ensure(InputComponent)) { return; }
+	InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+	InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
 }
 
 // Called every frame
@@ -83,7 +72,7 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
-	if (!PhysicsHandle) { return; }
+	if (!ensure(PhysicsHandle)) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 

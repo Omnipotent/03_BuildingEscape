@@ -15,3 +15,10 @@ BuildingEscape/Content/StarterContent/
 *.suo
 *.VC.opendb
 *.sln
+
+######################
+# Unnecessary Assets #
+######################
+BuildingEscape/Content/InfinityBladeGrassLands/
+BuildingEscape/Content/InfinityBladeEffects/
+BuildingEscape/Content/InfinityBladeIceLands/
